@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
-<p id="test"></p>
-<script>
-const files = {
-    file1: "file1",
-    file2: "file2",
-    file3: "file3"
-};
+<head>
+    <title>Static File Viewer</title>
+    <script>
+        async function fetchFiles() {
+            const response = await fetch('files.json');
+            const data = await response.json();
+            const fileList = document.getElementById('fileList');
+            data.files.forEach(file => {
+                const item = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = file;
+                link.textContent = file;
+                item.appendChild(link);
+                fileList.appendChild(item);
+            });
+        }
 
-let text = "";
-for (let x in files) {
-    text += files[x] + break;
-};
-
-document.getElementById("test").innerHTML = text;
-
-</script>
+        window.onload = fetchFiles;
+    </script>
+</head>
+<body>
+    <h1>Static File Viewer</h1>
+    <ul id="fileList"></ul>
+</body>
 </html>
